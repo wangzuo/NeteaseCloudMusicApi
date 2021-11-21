@@ -151,6 +151,9 @@ const createRequest = (method, url, data, options) => {
         responseType: 'arraybuffer',
       }
     }
+
+    settings.timeout = 300000 // 300 seconds
+
     axios(settings)
       .then((res) => {
         const body = res.data
