@@ -241,10 +241,17 @@
 223. 领取云豆
 224. 获取 VIP 信息
 225. 音乐人签到
-226. 发送文本动态
-227. 获取客户端歌曲下载 url
-228. 获取歌单所有歌曲
-229. 乐签信息
+226. 获取客户端歌曲下载 url
+227. 获取歌单所有歌曲
+228. 乐签信息
+229. 获取歌手视频
+230. 最近播放-歌曲
+231. 最近播放-视频
+232. 最近播放-声音
+233. 最近播放-歌单
+234. 最近播放-专辑
+235. 最近播放-播客
+
 
 ## 安装
 
@@ -710,7 +717,7 @@ signature：用户签名
 
 ### 更新头像
 
-说明 : 登录后调用此接口,使用`'Content-Type': 'multipart/form-data'`上传图片 formData(name 为'imgFile'),可更新头像(参考:https://github.com/Binaryify/NeteaseCloudMusicApi/blob/master/public/avatar_update.html),支持命令行调用,参考module_example目录下`avatar_upload.js`
+说明 : 登录后调用此接口,使用`'Content-Type': 'multipart/form-data'`上传图片 formData(name 为'imgFile'),可更新头像(参考: https://github.com/Binaryify/NeteaseCloudMusicApi/blob/master/public/avatar_update.html  ),支持命令行调用,参考module_example目录下`avatar_upload.js`
 
 **可选参数 :**
 
@@ -970,9 +977,9 @@ tags: 歌单标签
 
 **调用例子 :** `/event/del?evId=6712917601`
 
-### 分享歌曲、歌单、mv、电台、电台节目到动态
+### 分享文本、歌曲、歌单、mv、电台、电台节目到动态
 
-说明 : 登录后调用此接口 ,可以分享歌曲、歌单、mv、电台、电台节目到动态
+说明 : 登录后调用此接口 ,可以分享文本、歌曲、歌单、mv、电台、电台节目到动态
 
 **必选参数 :** `id` : 资源 id （歌曲，歌单，mv，电台，电台节目对应 id）
 
@@ -982,7 +989,7 @@ tags: 歌单标签
 
 **接口地址 :** `/share/resource`
 
-**调用例子 :** `/share/resource?id=1297494209&msg=测试` `/share/resource?type=djradio&id=336355127` `/share/resource?type=djprogram&id=2061034798` `/share/resource?type=djprogram&id=2061034798&msg=测试@binaryify 测试`
+**调用例子 :** `/share/resource?id=1297494209&msg=测试` `/share/resource?type=djradio&id=336355127` `/share/resource?type=djprogram&id=2061034798` `/share/resource?type=djprogram&id=2061034798&msg=测试@binaryify 测试` `/share/resource?type=noresource&msg=测试`
 
 ### 获取动态评论
 
@@ -1424,7 +1431,7 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 
 `privacy` : 是否设置为隐私歌单，默认否，传'10'则设置成隐私歌单
 
-`type` : 歌单类型,默认'NORMAL',传 'VIDEO'则为视频歌单
+`type` : 歌单类型,默认'NORMAL',传 'VIDEO'则为视频歌单,传 'SHARED'则为共享歌单
 
 **接口地址 :** `/playlist/create`
 
@@ -1903,7 +1910,8 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 
    `t`:0 删除
 
-   `type`: 数字,资源类型,对应歌曲,mv,专辑,歌单,电台,视频对应以下类型
+   `type`: 数字,资源类型,对应歌曲,mv,专辑,歌单,电台,视频对应以下类型  
+   
 
    ```
    0: 歌曲
@@ -1921,8 +1929,8 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 
    6: 动态
 
-   ```
-
+   ```  
+   
    `id`:对应资源 id
    `content` :内容 id,可通过 `/comment/mv` 等接口获取
 
@@ -1936,7 +1944,7 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 
 **可选参数 :**
 
-`type`:资源类型,对应以下类型,默认为 0 即 PC
+`type`:资源类型,对应以下类型,默认为 0 即 PC  
 
 ```
 0: pc
@@ -1946,7 +1954,7 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 2: iphone
 
 3: ipad
-```
+```  
 
 **接口地址 :** `/banner`
 
@@ -1960,6 +1968,7 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 
 `type`:资源类型,对应以下类型
 
+
 ```
 1: mv
 
@@ -1970,9 +1979,11 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 6: 动态
 ```
 
+
 `t`: 操作,1 为点赞,其他未取消点赞
 
-`id`: 资源 id
+`id`: 资源 id  
+
 
 **接口地址 :** `/resource/like`
 
@@ -1980,6 +1991,7 @@ mp3url 不能直接用 , 可通过 `/song/url` 接口传入歌曲 id 获取具�
 
 注意：如给动态点赞，不需要传入 id，需要传入 `threadId`,可通过 `event`,`/user/event` 接口获取，如：
 `/resource/like?t=1&type=6&threadId=A_EV_2_6559519868_32953014`
+
 
 ### 获取点赞过的视频
 
@@ -3583,14 +3595,6 @@ type='1009' 获取其 id, 如`/search?keywords= 代码时间 &type=1009`
 
 **接口地址 :** `/playlist/privacy`
 
-### 发送文本动态
-
-说明: 可以调用此接口发送动态。
-
-**必选参数 :** `msg` : 要发送的动态内容
-
-**接口地址 :** `/send/event/text`
-
 ### 获取客户端歌曲下载 url
 
 说明 : 使用 `/song/url` 接口获取的是歌曲试听 url, 但存在部分歌曲在非 VIP 账号上可以下载无损音质而不能试听无损音质, 使用此接口可使非 VIP 账号获取这些歌曲的无损音频
@@ -3600,6 +3604,84 @@ type='1009' 获取其 id, 如`/search?keywords= 代码时间 &type=1009`
 **可选参数 :** `br` : 码率, 默认设置了 999000 即最大码率, 如果要 320k 则可设置为 320000, 其他类推
 
 **接口地址 :** `/song/download/url`
+
+### 获取歌手视频
+
+说明 : 调用此接口 , 传入歌手 id, 可获得歌手视频
+
+**必选参数 :** `id` : 歌手 id
+
+**可选参数 :** `size` : 返回数量 , 默认为 10
+
+`cursor` : 返回数据的 cursor, 默认为 0 , 传入上一次返回结果的 cursor,将会返回下一页的数据
+
+`order` : 排序方法, 0 表示按时间排序, 1 表示按热度排序, 默认为 0
+
+**接口地址 :** `/artist/video`
+
+**调用例子 :** `/artist/video?id=2116`
+
+### 最近播放-歌曲
+
+说明 : 调用此接口 , 可获得最近播放-歌曲
+
+**可选参数 :** `limit` : 返回数量 , 默认为 100
+
+**接口地址 :** `/record/recent/song`
+
+**调用例子 :** `/record/recent/song?limit=1`
+
+### 最近播放-视频
+
+说明 : 调用此接口 , 可获得最近播放-视频
+
+**可选参数 :** `limit` : 返回数量 , 默认为 100
+
+**接口地址 :** `/record/recent/video`
+
+**调用例子 :** `/record/recent/video?limit=1`
+
+### 最近播放-声音
+
+说明 : 调用此接口 , 可获得最近播放-声音
+
+**可选参数 :** `limit` : 返回数量 , 默认为 100
+
+**接口地址 :** `/record/recent/voice`
+
+**调用例子 :** `/record/recent/voice?limit=1`
+
+### 最近播放-歌单
+
+说明 : 调用此接口 , 可获得最近播放-歌单
+
+**可选参数 :** `limit` : 返回数量 , 默认为 100
+
+**接口地址 :** `/record/recent/playlist`
+
+**调用例子 :** `/record/recent/playlist?limit=1`
+
+### 最近播放-专辑
+
+说明 : 调用此接口 , 可获得最近播放-专辑
+
+**可选参数 :** `limit` : 返回数量 , 默认为 100
+
+**接口地址 :** `/record/recent/album`
+
+**调用例子 :** `/record/recent/album?limit=1`
+
+### 最近播放-播客
+
+说明 : 调用此接口 , 可获得最近播放-播客
+
+**可选参数 :** `limit` : 返回数量 , 默认为 100
+
+**接口地址 :** `/record/recent/dj`
+
+**调用例子 :** `/record/recent/dj?limit=1`
+
+
 
 ## 离线访问此文档
 
